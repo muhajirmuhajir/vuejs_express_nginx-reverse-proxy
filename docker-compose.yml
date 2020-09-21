@@ -5,11 +5,13 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: backend:1
     restart: unless-stopped
   service:
     build:
       context: ./service
       dockerfile: Dockerfile
+    image: service:1
     restart: unless-stopped
     volumes:
       - ./service:/usr/app
@@ -17,11 +19,12 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: frontend:1
     restart: unless-stopped
     volumes:
       - ./frontend/src:/usr/app/src
   proxy:
-    image: nginx:1.17
+    image: nginx:1.19.2-alpine
     restart: unless-stopped
     depends_on:
       - service
